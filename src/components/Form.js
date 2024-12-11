@@ -10,7 +10,9 @@ import {
   Pagination,
   MenuItem,
   Select,
+  Stack,
 } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
@@ -125,32 +127,6 @@ function Form() {
 
   return (
     <div>
-      {/* TextField for adding new Todo */}
-      <TextField
-        id="outlined-textarea"
-        label="Task"
-        placeholder="Enter a new task"
-        multiline
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        sx={{
-          pr: "15px",
-          width: "300px",
-          marginBottom: "16px",
-          "& .MuiOutlinedInput-root": {
-            color: "white",
-            "& fieldset": { borderColor: "white" },
-            "&:hover fieldset": { borderColor: "lightgray" },
-            "&.Mui-focused fieldset": { borderColor: "white" },
-          },
-          "& .MuiInputLabel-root": { color: "white" },
-          "& .MuiInputLabel-root.Mui-focused": { color: "white" },
-        }}
-      />
-      <button className="button-add" type="submit" onClick={addTodo}>
-        Add
-      </button>
-
       <div>
         {/* Search Field */}
         <TextField
@@ -170,19 +146,80 @@ function Form() {
             "& .MuiInputLabel-root.Mui-focused": { color: "white" },
           }}
         />
+
         <Select
           value={filterStatus}
           onChange={handleFilterChange}
-          sx={{ ml:2,mb: 2, width: 150, color: "white" }}
+          sx={{
+            ml: 2,
+            mb: 2,
+            width: 150,
+            color: "white",
+            border: "1px solid white", // Directly set border to white
+
+            "& .MuiSelect-icon": { color: "white" }, // Optional: Set the icon color
+            "&.Mui-focused fieldset": { borderColor: "white" }, // Set focus border color to white
+          }}
         >
           <MenuItem value="All">All</MenuItem>
           <MenuItem value="Completed">Completed</MenuItem>
           <MenuItem value="Incomplete">Incomplete</MenuItem>
         </Select>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleViewAll}
+          size="large"
+          sx={{
+            ml: "15px",
+            backgroundColor: "white",
+            color: "#000000",
+            height: "56px",
+          }}
+        >
+          View All Tasks
+        </Button>
       </div>
+      <Stack display="flex" direction="row">
+        {/* TextField for adding new Todo */}
+        <TextField
+          fullWidth
+          size="medium"
+          id="outlined-textarea"
+          label="Task"
+          placeholder="Enter a new task"
+          multiline
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          sx={{
+            pr: "15px",
+            marginBottom: "16px",
+            "& .MuiOutlinedInput-root": {
+              color: "white",
+              "& fieldset": { borderColor: "white" },
+              "&:hover fieldset": { borderColor: "lightgray" },
+              "&.Mui-focused fieldset": { borderColor: "white" },
+            },
+            "& .MuiInputLabel-root": { color: "white" },
+            "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+          }}
+        />
+
+        <IconButton
+          type="submit"
+          onClick={addTodo}
+          aria-label="complete"
+          fontSize
+          large
+          sx={{ color: "white", mb: "15px" }}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+      </Stack>
 
       {filteredTodos.length > 0 && (
-        <div className="todo-main">
+        <div className="todo-main" style={{ marginTop: "50px" }}>
           <ul>
             {currentTodos.map((todo, index) => (
               <li
@@ -192,6 +229,11 @@ function Form() {
                 onDragStart={(e) => onDragStart(e, index)}
                 onDrop={(e) => onDrop(e, index)}
                 onDragOver={onDragOver}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
                 <input
                   type="text"
@@ -200,11 +242,12 @@ function Form() {
                   style={{
                     textDecoration: todo.completed ? "Line-through" : "none",
                     color: todo.completed ? "gray" : "white",
+                    textOverflow: "ellipsis",
                   }}
                   onClick={() => handleEdit(todo)}
                   readOnly
                 />
-                <div className="icon">
+                <div>
                   <IconButton
                     onClick={() => handleComplete(todo.id)}
                     aria-label="complete"
@@ -226,32 +269,26 @@ function Form() {
               </li>
             ))}
           </ul>
-
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={handlePageChange}
-            sx={{
-              marginTop: "16px",
-              "& .MuiPaginationItem-root": {
-                color: "white",
-              },
-              "& .MuiPaginationItem-root.Mui-selected": {
-                backgroundColor: "#1976d2",
-                color: "white",
-              },
-            }}
-          />
+          <Stack display="flex" direction="row" justifyContent="flex-end">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              sx={{
+                marginTop: "16px",
+                "& .MuiPaginationItem-root": {
+                  color: "white",
+                },
+                "& .MuiPaginationItem-root.Mui-selected": {
+                  backgroundColor: "#1976d2",
+                  color: "white",
+                },
+              }}
+            />
+          </Stack>
         </div>
       )}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleViewAll}
-        sx={{ m: "20px", backgroundColor: "#f1af71", color: "#000000" }}
-      >
-        View All Tasks
-      </Button>
+
       {/* Dialog for editing the Todo */}
       <Dialog
         open={openDialog}

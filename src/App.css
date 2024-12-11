@@ -42,13 +42,13 @@
 }
 
 .button-add {
-  width: 70px;
+  /* width: 70px;
   padding: 15px 15px;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 10px;
   border: 0;
   background-color: #f1af71;
-  cursor: pointer;
+  cursor: pointer; */
   /* display: flex; */
 }
 
@@ -108,10 +108,10 @@ button:focus{
   outline: none;
 }
 
-.icon{
+/* .icon{
   display: flex;
   padding-left: 50px;
-}
+} */
 .all-task-view{
   display: flex;
 }
