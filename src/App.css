@@ -112,3 +112,6 @@ button:focus{
   display: flex;
   padding-left: 50px;
 }
+.all-task-view{
+  display: flex;
+}
