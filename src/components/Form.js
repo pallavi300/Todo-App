@@ -11,6 +11,11 @@ import {
   MenuItem,
   Select,
   Stack,
+  Box,
+  List,
+  ListItem,
+  Divider,
+  Typography,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
@@ -35,7 +40,9 @@ function Form() {
   const addTodo = () => {
     if (newTodo) {
       const newTodoItem = { id: Date.now(), title: newTodo, completed: false };
-      setTodos([...todos, newTodoItem]);
+      // setTodos([...todos, newTodoItem]);
+      setTodos([newTodoItem, ...todos]); // Prepend new task to the beginning of the array
+
       setNewTodo(""); // Clear the input field
     }
   };
@@ -125,64 +132,13 @@ function Form() {
     e.preventDefault(); // Prevent default dragging behavior
   };
 
+  
+
   return (
-    <div>
-      <div>
-        {/* Search Field */}
-        <TextField
-          label="Search Tasks"
-          placeholder="Search tasks by keyword"
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-          sx={{
-            mb: 2,
-            width: 300,
-            "& .MuiOutlinedInput-root": {
-              color: "white",
-              "& fieldset": { borderColor: "white" },
-              "&:hover fieldset": { borderColor: "lightgray" },
-            },
-            "& .MuiInputLabel-root": { color: "white" },
-            "& .MuiInputLabel-root.Mui-focused": { color: "white" },
-          }}
-        />
+    <Box>
+      {/* TextField for adding new Todo */}
 
-        <Select
-          value={filterStatus}
-          onChange={handleFilterChange}
-          sx={{
-            ml: 2,
-            mb: 2,
-            width: 150,
-            color: "white",
-            border: "1px solid white", // Directly set border to white
-
-            "& .MuiSelect-icon": { color: "white" }, // Optional: Set the icon color
-            "&.Mui-focused fieldset": { borderColor: "white" }, // Set focus border color to white
-          }}
-        >
-          <MenuItem value="All">All</MenuItem>
-          <MenuItem value="Completed">Completed</MenuItem>
-          <MenuItem value="Incomplete">Incomplete</MenuItem>
-        </Select>
-
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleViewAll}
-          size="large"
-          sx={{
-            ml: "15px",
-            backgroundColor: "white",
-            color: "#000000",
-            height: "56px",
-          }}
-        >
-          View All Tasks
-        </Button>
-      </div>
       <Stack display="flex" direction="row">
-        {/* TextField for adding new Todo */}
         <TextField
           fullWidth
           size="medium"
@@ -193,8 +149,6 @@ function Form() {
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           sx={{
-            pr: "15px",
-            marginBottom: "16px",
             "& .MuiOutlinedInput-root": {
               color: "white",
               "& fieldset": { borderColor: "white" },
@@ -210,20 +164,97 @@ function Form() {
           type="submit"
           onClick={addTodo}
           aria-label="complete"
-          fontSize
-          large
-          sx={{ color: "white", mb: "15px" }}
+          sx={{ color: "white" }}
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
       </Stack>
 
-      {filteredTodos.length > 0 && (
-        <div className="todo-main" style={{ marginTop: "50px" }}>
-          <ul>
+      <Divider
+        sx={{
+          marginTop: "30px",
+          marginBottom: "30px",
+          backgroundColor: "white",
+        }}
+      />
+
+      {/* Search Field */}
+
+      <Stack
+        spacing={2}
+        display="flex"
+        direction="row"
+        justifyContent="space-between"
+      >
+        <TextField
+          label="Search Tasks"
+          placeholder="Search tasks by keyword"
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+          sx={{
+            width: 300,
+            "& .MuiOutlinedInput-root": {
+              color: "white",
+              "& fieldset": { borderColor: "white" },
+              "&:hover fieldset": { borderColor: "lightgray" },
+            },
+            "& .MuiInputLabel-root": { color: "white" },
+            "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+          }}
+        />
+
+        <Select
+          size="small"
+          value={filterStatus}
+          onChange={handleFilterChange}
+          sx={{
+            width: 150,
+            color: "white",
+            border: "1px solid white", // Directly set border to white
+            "& .MuiSelect-icon": { color: "white" }, // Optional: Set the icon color
+            "&.Mui-focused fieldset": { borderColor: "white" }, // Set focus border color to white
+          }}
+        >
+          <MenuItem value="All">All</MenuItem>
+          <MenuItem value="Completed">Completed</MenuItem>
+          <MenuItem value="Incomplete">Incomplete</MenuItem>
+        </Select>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleViewAll}
+          size="small"
+          sx={{
+            backgroundColor: "white",
+            color: "#000000",
+            height: "56px",
+            "@media (max-width: 685px)": {
+              width: "100%", // Make the button full width
+              height: "auto", // Adjust height to fit content
+            },
+          }}
+        >
+          View Tasks
+        </Button>
+      </Stack>
+      <Divider
+        sx={{
+          marginTop: "30px",
+          marginBottom: "30px",
+          backgroundColor: "white",
+        }}
+      />
+
+      <Typography variant="h5" sx={{ color: "white" }}>
+        Todo-List
+      </Typography>
+
+      {filteredTodos?.length > 0 && (
+        <Stack>
+          <List>
             {currentTodos.map((todo, index) => (
-              <li
-                className="list-item"
+              <ListItem
                 key={todo.id}
                 draggable
                 onDragStart={(e) => onDragStart(e, index)}
@@ -235,40 +266,46 @@ function Form() {
                   alignItems: "center",
                 }}
               >
-                <input
-                  type="text"
+                <TextField
                   value={todo.title}
-                  className="list"
-                  style={{
-                    textDecoration: todo.completed ? "Line-through" : "none",
-                    color: todo.completed ? "gray" : "white",
-                    textOverflow: "ellipsis",
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      color: "white",
+                      "& fieldset": { borderColor: "white" },
+                      "&:hover fieldset": { borderColor: "lightgray" },
+                      "&.Mui-focused fieldset": { borderColor: "white" },
+                    },
+                    "& .MuiInputBase-input": {
+                      textDecoration: todo.completed ? "line-through" : "none",
+                      color: todo.completed ? "gray" : "white",
+                      textOverflow: "ellipsis",
+                    },
                   }}
                   onClick={() => handleEdit(todo)}
-                  readOnly
+                  readOnly={!todo.completed} // Makes it read-only only if the task is not completed
+                  fullWidth
                 />
-                <div>
-                  <IconButton
-                    onClick={() => handleComplete(todo.id)}
-                    aria-label="complete"
-                    sx={{
-                      color: todo.completed ? "green" : "white",
-                    }}
-                  >
-                    <CheckCircleOutlinedIcon />
-                  </IconButton>
 
-                  <IconButton
-                    onClick={() => handleDelete(todo.id)}
-                    aria-label="delete"
-                    sx={{ color: "white" }}
-                  >
-                    <DeleteForeverOutlinedIcon />
-                  </IconButton>
-                </div>
-              </li>
+                <IconButton
+                  onClick={() => handleComplete(todo.id)}
+                  aria-label="complete"
+                  sx={{
+                    color: todo.completed ? "green" : "white",
+                  }}
+                >
+                  <CheckCircleOutlinedIcon />
+                </IconButton>
+
+                <IconButton
+                  onClick={() => handleDelete(todo.id)}
+                  aria-label="delete"
+                  sx={{ color: "red " }}
+                >
+                  <DeleteForeverOutlinedIcon />
+                </IconButton>
+              </ListItem>
             ))}
-          </ul>
+          </List>
           <Stack display="flex" direction="row" justifyContent="flex-end">
             <Pagination
               count={totalPages}
@@ -282,11 +319,12 @@ function Form() {
                 "& .MuiPaginationItem-root.Mui-selected": {
                   backgroundColor: "#1976d2",
                   color: "white",
+                  
                 },
               }}
             />
           </Stack>
-        </div>
+        </Stack>
       )}
 
       {/* Dialog for editing the Todo */}
@@ -357,8 +395,8 @@ function Form() {
         <DialogTitle sx={{ color: "white" }}>View All Tasks</DialogTitle>
         <DialogContent>
           {todos.map((todo, index) => (
-            <ul>
-              <li
+            <List>
+              <ListItem
                 key={todo.id}
                 draggable
                 onDragStart={(e) => onDragStart(e, index)}
@@ -373,8 +411,8 @@ function Form() {
                 }}
               >
                 {todo.title}
-              </li>
-            </ul>
+              </ListItem>
+            </List>
           ))}
         </DialogContent>
         <DialogActions>
@@ -383,7 +421,7 @@ function Form() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 }
 

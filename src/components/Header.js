@@ -1,14 +1,15 @@
-import { Divider, Box } from "@mui/material";
+import { Divider, Box, Typography } from "@mui/material";
 
 function Header() {
   return (
-    <div className="header">
-      <h1>Todo-List</h1>
-      {/* Shadow Divider */}
+    <Box textAlign="center" mb={3}>
+      <Typography variant="h3" sx={{ color: "white" }}>
+        Todo-Application
+      </Typography>
       <Box>
-        <Divider sx={{ backgroundColor: "white", height: 2, margin: 6 }} />
+        <Divider sx={{ backgroundColor: "white", margin: 3, boxShadow: 2 }} />
       </Box>
-    </div>
+    </Box>
   );
 }
 

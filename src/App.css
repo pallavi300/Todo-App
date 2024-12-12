@@ -3,16 +3,16 @@
   padding: 0;
 }
 
-.container {
+/* .container {
   background: linear-gradient(to right bottom, #e1b382, #c89666);
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.app-wrapper {
+/* .app-wrapper {
   background-color: #12343b;
   min-width: 450px;
   min-height: 650px;
@@ -27,9 +27,9 @@
   color: #fff;
   text-align: center;
   margin: 30px 0;
-}
+} */
 
-.task-input {
+/* .task-input {
   outline: none;
   width: 260px;
   padding: 15px;
@@ -39,61 +39,49 @@
   background-color: #000000;
   border: 1px solid #c89666;
   border-radius: 10px;
-}
+} */
 
-.button-add {
-  /* width: 70px;
-  padding: 15px 15px;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 0;
-  background-color: #f1af71;
-  cursor: pointer; */
-  /* display: flex; */
-}
 
-.list-item {
+/* .list-item {
   display: flex;
   margin: 20px 0;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 10px;
   max-height: 30px;
-}
+} */
 
-.button-complete  
-.button-delete  
-.button-edit  {
+/* .button-complete .button-delete .button-edit {
   border: none;
   outline: none;
   cursor: pointer;
   background-color: transparent;
   font-size: 28px;
   border-radius: 50%;
-}
+} */
 
-.button-complete{
+/* .button-complete {
   color: #ff6c6c;
   margin-right: 10px;
 }
 
-.button-edit{
+.button-edit {
   color: #e2d029;
   margin-right: 10px;
 }
 
-.button-delete{
+.button-delete {
   color: lightseagreen;
-}
+} */
 
-.complete{
+/* .complete {
   text-decoration: solid;
   text-decoration: line-through;
   text-decoration-color: #ff6c6c;
   opacity: 0.6;
-}
+} */
 
-.list{
+/* .list {
   width: 220px;
   background-color: #12343b;
   border: none;
@@ -101,17 +89,64 @@
   font-size: 20px;
   padding-left: 10px;
   margin-left: 15px;
-}
+} */
 
-input:focus,
-button:focus{
+/* input:focus,
+button:focus {
   outline: none;
-}
+} */
 
 /* .icon{
   display: flex;
   padding-left: 50px;
 } */
-.all-task-view{
+/* .all-task-view {
   display: flex;
+} */
+
+
+/* 
+@media only screen and (max-width: 600px) {
+  .container {
+    background: linear-gradient(to right bottom, #e1b382, #c89666);
+  }
 }
+
+@media only screen and (max-width: 765px) {
+  .container {
+    background-color: #ff6c6c;
+    width: auto;
+  }
+  .app-wrapper {
+    background-color: rgb(0, 110, 255);
+    width: 300px;  }
+}
+@media only screen and (min-width: 420px) {
+  .container {
+    background-color: #ff6c6c;
+    width: auto;
+  }
+  .app-wrapper {
+    background-color: yellow;
+  }
+
+} */
+
+/* @media  (min-width: 400px) {
+  .container {
+    background-color: #ff6c6c;
+    width: auto;
+  }}
+  .app-wrapper {
+    background-color: pink  ;
+  }
+  .button-delete{
+    size: 50px;
+    color: aqua;
+  } */
+
+  /* @media only screen and (max-width: 400px) {
+    .container {
+      background-color: pink  ;
+    }
+  } */
