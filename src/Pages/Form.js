@@ -22,8 +22,8 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
 function Form() {
-  const initialState = JSON.parse(localStorage.getItem("todos")) || [];
-  const [todos, setTodos] = useState(initialState);
+  // const initialState = JSON.parse(localStorage.getItem("todos")) || [];
+  // const [todos, setTodos] = useState(initialState);
   const [newTodo, setNewTodo] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -33,9 +33,17 @@ function Form() {
   const [filterStatus, setFilterStatus] = useState("All");
   const [searchKeyword, setSearchKeyword] = useState("");
 
+
+  const loggedInUser = localStorage.getItem("loggedin"); 
+  const initialState = JSON.parse(localStorage.getItem(`${loggedInUser}-todos`)) || [];
+  const [todos, setTodos] = useState(initialState);
+  
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    if (loggedInUser) {
+      localStorage.setItem(`${loggedInUser}-todos`, JSON.stringify(todos));
+    }
+  }, [todos, loggedInUser]);
+  
 
   const addTodo = () => {
     if (newTodo) {
@@ -131,6 +139,7 @@ function Form() {
     e.preventDefault(); 
   };
 
+  
 
 
   return (

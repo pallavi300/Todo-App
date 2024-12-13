@@ -1,5 +1,5 @@
 import {
-    Button,
+  Button,
   FormControl,
   Paper,
   TextField,
@@ -32,7 +32,9 @@ function Login() {
       );
 
       if (user) {
-        localStorage.setItem("loggedin", true);
+        // Reset todos for the new user
+        localStorage.setItem("todos", JSON.stringify([]));
+        localStorage.setItem("loggedin", formData.email); // Save the logged-in user's email
         alert("User login successfully!");
 
         navigate("/");
@@ -45,7 +47,6 @@ function Login() {
   };
 
   return (
-    
     <Paper
       elevation={3}
       style={{ padding: "20px", width: "500px", backgroundColor: "#12343b" }}
@@ -62,7 +63,7 @@ function Login() {
             type="email"
             value={formData.email}
             onChange={handleChange}
-            autoComplete="off" 
+            autoComplete="off"
             required
             sx={{
               "& .MuiOutlinedInput-root": {
@@ -111,7 +112,7 @@ function Login() {
         Don't have an account?
         <Link
           to="/register"
-          style={{ textDecoration: "none", color: "white", marginLeft:5}}
+          style={{ textDecoration: "none", color: "white", marginLeft: 5 }}
         >
           <u>Register here</u>
         </Link>
