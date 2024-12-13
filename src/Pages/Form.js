@@ -211,7 +211,7 @@ function Form() {
             width: 150,
             color: "white",
             border: "1px solid white", 
-            "& .MuiSelect-icon": { color: "white" }, 
+            "& .MuiSelect-icon": { color: "white" },
             "&.Mui-focused fieldset": { borderColor: "white" }, 
           }}
         >
@@ -260,7 +260,11 @@ function Form() {
                 onDragStart={(e) => onDragStart(e, index)}
                 onDrop={(e) => onDrop(e, index)}
                 onDragOver={onDragOver}
-     
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
                 <TextField
                   value={todo.title}
@@ -397,7 +401,13 @@ function Form() {
                 onDragStart={(e) => onDragStart(e, index)}
                 onDrop={(e) => onDrop(e, index)}
                 onDragOver={onDragOver}
-            
+                style={{
+                  marginBottom: "8px",
+                  backgroundColor: "#1e2a3a",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  color: "white",
+                }}
               >
                 {todo.title}
               </ListItem>
