@@ -40,21 +40,20 @@ function Form() {
   const addTodo = () => {
     if (newTodo) {
       const newTodoItem = { id: Date.now(), title: newTodo, completed: false };
-      // setTodos([...todos, newTodoItem]);
-      setTodos([newTodoItem, ...todos]); // Prepend new task to the beginning of the array
+      setTodos([newTodoItem, ...todos]); 
 
-      setNewTodo(""); // Clear the input field
+      setNewTodo(""); 
     }
   };
 
   const handleEdit = (todo) => {
     setSelectedTodo(todo);
-    setOpenDialog(true); // Open dialog when clicking on the edit button
+    setOpenDialog(true); 
   };
 
   const handleCloseDialog = () => {
-    setOpenDialog(false); // Close dialog
-    setSelectedTodo(null); // Reset selected todo
+    setOpenDialog(false); 
+    setSelectedTodo(null);
   };
 
   const handleSaveEdit = () => {
@@ -65,7 +64,7 @@ function Form() {
           : todo
       );
       setTodos(updatedTodos);
-      handleCloseDialog(); // Close the dialog after saving
+      handleCloseDialog(); 
     }
   };
 
@@ -78,7 +77,7 @@ function Form() {
   };
 
   const handleDelete = (todoId) => {
-    setTodos(todos.filter((todo) => todo.id !== todoId)); // Delete the task
+    setTodos(todos.filter((todo) => todo.id !== todoId)); 
   };
 
   // Pagination Logic
@@ -108,11 +107,11 @@ function Form() {
   };
 
   const handleViewAll = () => {
-    setViewAllOpen(true); // Open view all dialog
+    setViewAllOpen(true); 
   };
 
   const handleCloseViewAll = () => {
-    setViewAllOpen(false); // Close view all dialog
+    setViewAllOpen(false); 
   };
 
   // Drag-and-drop handlers
@@ -129,12 +128,13 @@ function Form() {
   };
 
   const onDragOver = (e) => {
-    e.preventDefault(); // Prevent default dragging behavior
+    e.preventDefault(); 
   };
 
-  
+
 
   return (
+    
     <Box>
       {/* TextField for adding new Todo */}
 
@@ -210,9 +210,9 @@ function Form() {
           sx={{
             width: 150,
             color: "white",
-            border: "1px solid white", // Directly set border to white
-            "& .MuiSelect-icon": { color: "white" }, // Optional: Set the icon color
-            "&.Mui-focused fieldset": { borderColor: "white" }, // Set focus border color to white
+            border: "1px solid white", 
+            "& .MuiSelect-icon": { color: "white" }, 
+            "&.Mui-focused fieldset": { borderColor: "white" }, 
           }}
         >
           <MenuItem value="All">All</MenuItem>
@@ -230,8 +230,8 @@ function Form() {
             color: "#000000",
             height: "56px",
             "@media (max-width: 685px)": {
-              width: "100%", // Make the button full width
-              height: "auto", // Adjust height to fit content
+              width: "100%", 
+              height: "auto", 
             },
           }}
         >
@@ -246,8 +246,8 @@ function Form() {
         }}
       />
 
-      <Typography variant="h5" sx={{ color: "white" }}>
-        Todo-List
+      <Typography variant="h5" sx={{ color: "white", textAlign:"center" }}>
+        Task-List
       </Typography>
 
       {filteredTodos?.length > 0 && (
@@ -260,15 +260,12 @@ function Form() {
                 onDragStart={(e) => onDragStart(e, index)}
                 onDrop={(e) => onDrop(e, index)}
                 onDragOver={onDragOver}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+     
               >
                 <TextField
                   value={todo.title}
                   sx={{
+                    mr:2,
                     "& .MuiOutlinedInput-root": {
                       color: "white",
                       "& fieldset": { borderColor: "white" },
@@ -282,7 +279,7 @@ function Form() {
                     },
                   }}
                   onClick={() => handleEdit(todo)}
-                  readOnly={!todo.completed} // Makes it read-only only if the task is not completed
+                  readOnly={!todo.completed} 
                   fullWidth
                 />
 
@@ -319,7 +316,6 @@ function Form() {
                 "& .MuiPaginationItem-root.Mui-selected": {
                   backgroundColor: "#1976d2",
                   color: "white",
-                  
                 },
               }}
             />
@@ -395,20 +391,13 @@ function Form() {
         <DialogTitle sx={{ color: "white" }}>View All Tasks</DialogTitle>
         <DialogContent>
           {todos.map((todo, index) => (
-            <List>
+            <List key={todo.id}>
               <ListItem
-                key={todo.id}
                 draggable
                 onDragStart={(e) => onDragStart(e, index)}
                 onDrop={(e) => onDrop(e, index)}
                 onDragOver={onDragOver}
-                style={{
-                  marginBottom: "8px",
-                  backgroundColor: "#1e2a3a",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  color: "white",
-                }}
+            
               >
                 {todo.title}
               </ListItem>

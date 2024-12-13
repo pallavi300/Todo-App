@@ -1,43 +1,39 @@
 import React from "react";
-import { Container, Box, Typography, Paper } from "@mui/material";
-import Form from "./components/Form";
+import { Container } from "@mui/material";
 import Header from "./components/Header";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import ProtectRoutes from "./Services/ProtectRoutes";
 
 function App() {
   return (
-    <Container
-      maxWidth="full"
-      sx={{
-        background: "linear-gradient(to right bottom, #e1b382, #c89666)",
-        width: "100%",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-    <Box
-      sx={{
-        backgroundColor: "#12343b",
-        maxWidth: 500,
-        width: "100%", // Full width when screen size is less than 700px
-        minHeight: 650,
-        padding: 4,
-        borderRadius: 2,
-        '@media (max-width: 700px)': {
-          maxWidth: '100%', // Make full width for screen sizes less than 700px
-        },
-      }}
-    >
-      {/* Content goes here */}
- 
-        <Box textAlign="center" mb={3} sx={{ color: "#fff", margin: "30px 0" }}>
-          <Header  />
-        </Box>
+    <>
+      <Container
+        maxWidth="full"
+        sx={{
+          background: "linear-gradient(to right bottom, #e1b382, #c89666)",
+          width: "100%",
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+        }}
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<ProtectRoutes />}>
+              <Route path="/" element={<Header />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Container>
+    </>
 
-        <Form />
-      </Box>
-    </Container>
+   
   );
 }
 
