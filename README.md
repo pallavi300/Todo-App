@@ -1,6 +1,6 @@
 # TODO Application
 
-The Todo application helps users manage tasks efficiently by providing features like task creation, updating, deletion, search, pagination, and drag-and-drop functionality, enhancing productivity and providing a seamless experience.
+The Todo application helps users manage tasks efficiently by providing features like task creation, updating, deletion, search, pagination, drag-and-drop functionality, and a secure login system, enhancing productivity and providing a seamless experience.
 
 ## Features
 
@@ -11,6 +11,7 @@ The Todo application helps users manage tasks efficiently by providing features 
 - Drag and Drop: User can prioritize their task according to them.
 - View All Tasks: User can see all tasks by clicking view tasks option.
 - Responsive Design: Ensures the application works seamlessly across different devices (web, mobile, tablet).
+- Login Page: Users can access the application securely by logging in with their credentials.
 
 ## Tech
 
